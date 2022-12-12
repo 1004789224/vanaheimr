@@ -1,8 +1,11 @@
+import contstants.Version
+plugins {
+    id("db-config")
+}
 dependencies {
-    // spring-data-jpq
-    implementation("org.springframework.boot:spring-boot-starter-data-jpa")
-    // mysql
-    implementation("mysql:mysql-connector-java")
-    // querydsl
-    implementation("com.querydsl:querydsl-jpa")
+
+
+    api(project(":common:common-core"))
+    // jackson
+    implementation("com.fasterxml.jackson.module:jackson-module-kotlin")
 }

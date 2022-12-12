@@ -16,32 +16,34 @@ plugins {
     id("com.ewerk.gradle.plugins.querydsl") version "1.0.10" apply false
     // kapt
     id("org.jetbrains.kotlin.kapt") version "1.7.20" apply false
+    id("io.ebean") version "13.6.5" apply false
 }
 
 
 val realModule = kotlin.collections.listOf("api", "boot", "po", "biz")
 
-val isCommon = project.name.replace("common", "").isNotEmpty()
+val isCommon = project.name.replace("common", "").isNotBlank()
 // 每个模块都依赖kotlin插件
 allprojects {
 
-    if (realModule.contains(this.name)||isCommon) {
-        repositories {
-            mavenLocal()
-            if (System.getenv("GITHUB_WORKFLOW") == null) { // 普通环境
-                maven(url = "https://mirrors.tencent.com/nexus/repository/maven-public")
-                maven(url = "https://mirrors.tencent.com/nexus/repository/gradle-plugins/")
-            } else { // GitHub Action 环境
-                mavenCentral()
-                gradlePluginPortal()
-            }
+    repositories {
+        mavenLocal()
+        if (System.getenv("GITHUB_WORKFLOW") == null) { // 普通环境
+            maven(url = "https://mirrors.tencent.com/nexus/repository/maven-public")
+            maven(url = "https://mirrors.tencent.com/nexus/repository/gradle-plugins/")
+        } else { // GitHub Action 环境
+            mavenCentral()
+            gradlePluginPortal()
         }
+    }
+
+    if (realModule.contains(this.name) || isCommon) {
 
         apply(plugin = "io.spring.dependency-management")
         // kotlin
         apply(plugin = "kotlin")
-
-//    apply(plugin = "kapt")
+        apply(plugin = "java")
+        apply(plugin = "org.jetbrains.kotlin.kapt")
         // kotlin-spring
         apply(plugin = "org.jetbrains.kotlin.plugin.spring")
         // 如果是boot的模块，依赖spring-boot的插件
@@ -59,6 +61,47 @@ allprojects {
             imports {
                 mavenBom("org.springframework.boot:spring-boot-dependencies:${Version.SpringBoot}")
             }
+        }
+        // 统一使用kotlin17
+        tasks.withType<org.jetbrains.kotlin.gradle.tasks.KotlinCompile> {
+            kotlinOptions {
+                jvmTarget = "17"
+                apiVersion = "1.7"
+                languageVersion = "1.7"
+            }
+        }
+        val testImplementation by configurations
+        val implementation by configurations
+        val kapt by configurations
+
+        // 测试使用junit5
+        dependencies {
+            testImplementation("org.springframework.boot:spring-boot-starter-test") {
+                exclude(group = "org.junit.vintage", module = "junit-vintage-engine")
+            }
+        }
+
+        if (project.name.equals("po")) {
+            // ebean
+            apply(plugin = "io.ebean")
+            dependencies {
+                // ebean
+                implementation("io.ebean:ebean:${Version.ebean}")
+                kapt("io.ebean:kotlin-querybean-generator:${Version.ebean}")
+
+                testImplementation("io.ebean:ebean-test:${Version.ebean}")
+                // h2 driver
+                testImplementation("com.h2database:h2")
+            }
+
+        }
+        dependencies{
+            testImplementation("org.springframework.boot:spring-boot-starter-test")
+            testImplementation("org.junit.jupiter:junit-jupiter:5.8.1")
+
+        }
+        tasks.withType<Test> {
+            useJUnitPlatform()
         }
     }
 
