@@ -1,6 +1,5 @@
-import contstants.Version
 plugins {
-    id("db-config")
+    id("db-conventions")
 }
 dependencies {
 

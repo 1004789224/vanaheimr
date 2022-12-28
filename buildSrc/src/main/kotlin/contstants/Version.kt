@@ -3,7 +3,8 @@ package contstants
 // todo 通过toml做依赖约束
 
 object Version {
-    const val ebean = "13.10.1"
+    const val kotlin = "1.7.21"
+    const val ebean = "13.6.5"
     const val h2 = "1.4.199"
 
     const val SpringBoot = "2.7.6"

@@ -23,9 +23,10 @@ pluginManagement {
 
 
 
-include(":account")
-include(":account:biz")
-include(":account:po")
+include(":system")
+include(":system:biz")
+include(":system:api")
+include(":system:po")
 include(":common")
 include(":common:common-db")
 include(":common:common-core")

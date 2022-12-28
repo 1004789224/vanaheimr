@@ -12,13 +12,14 @@
         <option name="modules">
           <set>
             <option value="$PROJECT_DIR$" />
-            <option value="$PROJECT_DIR$/account" />
-            <option value="$PROJECT_DIR$/account/biz" />
-            <option value="$PROJECT_DIR$/account/po" />
             <option value="$PROJECT_DIR$/buildSrc" />
             <option value="$PROJECT_DIR$/common" />
             <option value="$PROJECT_DIR$/common/common-core" />
             <option value="$PROJECT_DIR$/common/common-db" />
+            <option value="$PROJECT_DIR$/system" />
+            <option value="$PROJECT_DIR$/system/api" />
+            <option value="$PROJECT_DIR$/system/biz" />
+            <option value="$PROJECT_DIR$/system/po" />
           </set>
         </option>
       </GradleProjectSettings>

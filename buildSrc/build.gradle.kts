@@ -1,3 +1,6 @@
+ext {
+    set("kotlin_version", "1.7.21")
+}
 // gradle使用kts
 plugins {
     `kotlin-dsl`
@@ -5,14 +8,7 @@ plugins {
 
 // 插件使用仓库
 repositories {
-    mavenLocal()
-    if (System.getenv("GITHUB_WORKFLOW") == null) { // 普通环境
-        maven(url = "https://mirrors.tencent.com/nexus/repository/maven-public")
-        maven(url = "https://mirrors.tencent.com/nexus/repository/gradle-plugins/")
-    } else { // GitHub Action 环境
-        mavenCentral()
-        gradlePluginPortal()
-    }
+    gradlePluginPortal()
 }
 
 // 依赖插件
@@ -21,6 +17,13 @@ dependencies {
     implementation("com.github.jengelman.gradle.plugins:shadow:6.1.0")
     implementation("org.apache.logging.log4j:log4j-core:2.17.1")
     implementation("org.owasp:dependency-check-gradle:7.1.0.1")
-    // ebean
-    implementation("io.ebean:ebean:13.10.1")
+    // ebean-gradle-plugin
+    implementation("io.ebean:ebean-gradle-plugin:13.10.1")
+    // kotlin-gradle-plugin
+    implementation("org.jetbrains.kotlin:kotlin-gradle-plugin:1.7.21")
+    // spring-gradle-plugin
+    implementation("org.springframework.boot:spring-boot-gradle-plugin:3.0.1")
+    // swagger-gradle-plugin
+    implementation("io.swagger.core.v3:swagger-gradle-plugin:2.2.7")
+
 }
