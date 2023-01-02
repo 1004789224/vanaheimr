@@ -1,0 +1,24 @@
+{
+  "openapi": "3.0.3",
+  "info": {
+    "title": "Title",
+    "description": "Title",
+    "version": "1.0.0"
+  },
+  "servers": [
+    {
+      "url": "https"
+    }
+  ],
+  "security": [
+    {
+      "bearerAuth": [
+        "read:messages",
+        "write:messages"
+      ]
+    }
+  ],
+
+  "paths": {
+  }
+}

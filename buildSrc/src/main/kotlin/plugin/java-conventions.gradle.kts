@@ -44,6 +44,6 @@ tasks.withType<Javadoc>() {
 
 
 dependencies {
-    implementation(platform("org.springframework.boot:spring-boot-dependencies:3.0.1"))
-    testImplementation("org.springframework.boot:spring-boot-starter-test")
+    implementation(platform("io.micronaut:micronaut-bom:3.1.0"))
+    testImplementation("io.micrinaut.test:micronaut-test-junit5")
 }

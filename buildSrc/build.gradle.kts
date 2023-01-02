@@ -25,5 +25,7 @@ dependencies {
     implementation("org.springframework.boot:spring-boot-gradle-plugin:3.0.1")
     // swagger-gradle-plugin
     implementation("io.swagger.core.v3:swagger-gradle-plugin:2.2.7")
+    // jooq-gradle-plugin
+    implementation("nu.studer:gradle-jooq-plugin:8.1")
 
 }
