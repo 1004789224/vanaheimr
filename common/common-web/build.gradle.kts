@@ -3,6 +3,9 @@ plugins {
 }
 
 
-dependencies{
-    implementation("org.springframework:spring-web")
+dependencies {
+    // micronaut-security
+    implementation("io.micronaut.security:micronaut-security-jwt")
+    implementation("io.micronaut:micronaut-http-server-netty")
+
 }

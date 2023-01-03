@@ -1,3 +1,4 @@
+val module = project.name
 subprojects {
 
     when (this.project.name) {
@@ -13,6 +14,15 @@ subprojects {
         "po" -> {
             apply(plugin = "db-conventions")
         }
+
+        "boot" -> {
+            apply(plugin = "boot-conventions")
+            val implementation by this.configurations
+            dependencies {
+                implementation(project(":$module:biz"))
+            }
+        }
+
     }
     val implementation by this.configurations
     this.dependencies {

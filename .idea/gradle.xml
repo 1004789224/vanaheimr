@@ -20,6 +20,7 @@
             <option value="$PROJECT_DIR$/system" />
             <option value="$PROJECT_DIR$/system/api" />
             <option value="$PROJECT_DIR$/system/biz" />
+            <option value="$PROJECT_DIR$/system/boot" />
             <option value="$PROJECT_DIR$/system/po" />
           </set>
         </option>

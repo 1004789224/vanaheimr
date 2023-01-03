@@ -1,4 +1,3 @@
-
 rootProject.name = "Vanaheimr"
 // 适用于project的plugins
 pluginManagement {
@@ -27,6 +26,7 @@ include(":system")
 include(":system:biz")
 include(":system:api")
 include(":system:po")
+include(":system:boot")
 include(":common")
 include(":common:common-db")
 include(":common:common-core")

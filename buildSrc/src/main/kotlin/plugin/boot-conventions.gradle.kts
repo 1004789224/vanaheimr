@@ -6,10 +6,14 @@
 
 plugins {
     id("java-conventions")
-    id("io.micronaut.library")
+    id("io.micronaut.application")
 }
-
+dependencies {
+    // micronaut-runtime
+    implementation("io.micronaut:micronaut-runtime")
+}
 
 micronaut {
     version.set("3.8.0")
+
 }

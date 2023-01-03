@@ -1,5 +1,5 @@
 dependencies {
-
-    // spring-boot-starter-security
-//    implementation("org.springframework.boot:spring-boot-starter-security")
+    // micronaut-web
+    implementation("io.micronaut:micronaut-http-server-netty")
+    //
 }
