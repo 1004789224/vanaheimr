@@ -20,7 +20,8 @@ dependencies {
     // ebean-gradle-plugin
     implementation("io.ebean:ebean-gradle-plugin:13.10.1")
     // kotlin-gradle-plugin
-    implementation("org.jetbrains.kotlin:kotlin-gradle-plugin:1.8.0")
+    implementation("org.jetbrains.kotlin:kotlin-gradle-plugin:1.7.21")
+    implementation("org.jetbrains.kotlin:kotlin-allopen:1.7.21")
     // micronaut-gradle-plugin
     implementation("io.micronaut.gradle:micronaut-gradle-plugin:3.6.7")
     // swagger-gradle-plugin

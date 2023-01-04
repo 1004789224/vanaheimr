@@ -5,7 +5,9 @@ plugins {
 
 dependencies {
     // micronaut-security
-    implementation("io.micronaut.security:micronaut-security-jwt")
     implementation("io.micronaut:micronaut-http-server-netty")
 
+    // reactor-core
+    implementation("io.projectreactor:reactor-core")
+    implementation(project(":common:common-core"))
 }

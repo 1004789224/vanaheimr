@@ -4,15 +4,22 @@ subprojects {
     when (this.project.name) {
         "api" -> {
             apply(plugin = "api-conventions")
+
         }
 
         "biz" -> {
             apply(plugin = "lib-conventions")
-
+            val implementation by this.configurations
+            val api by this.configurations
+            dependencies {
+                api(project(":$module:api"))
+                implementation(project(":$module:po"))
+            }
         }
 
         "po" -> {
             apply(plugin = "db-conventions")
+            apply(plugin = "java-conventions")
         }
 
         "boot" -> {

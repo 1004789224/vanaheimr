@@ -1,3 +1,3 @@
 application {
-    mainClass.set("io.vanaheimr.system.BootApplication")
+    mainClass.set("io.vanaheimr.system.SystemBoot")
 }

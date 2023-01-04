@@ -6,10 +6,14 @@
 
 plugins {
     id("java-conventions")
-    id("io.micronaut.library")
 }
 
-
-micronaut {
-    version.set("3.8.0")
+dependencies {
+    implementation("io.micronaut.kotlin:micronaut-kotlin-runtime")
+    implementation("io.micronaut.serde:micronaut-serde-jackson")
+    kapt("io.micronaut:micronaut-inject-java")
+    kapt("io.micronaut:micronaut-graal")
+    runtimeOnly("ch.qos.logback:logback-classic")
+    compileOnly("org.graalvm.nativeimage:svm")
 }
+
