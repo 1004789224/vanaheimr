@@ -2,17 +2,11 @@ import contstants.Version
 
 plugins {
     id("java-conventions")
-    kotlin("jvm")
-    id("org.jetbrains.kotlin.kapt")
     // ebean
     id("io.ebean")
 }
 
 
-val implementation by configurations
-val kapt by configurations
-val testImplementation by configurations
-val runtimeOnly by configurations
 
 
 dependencies {
