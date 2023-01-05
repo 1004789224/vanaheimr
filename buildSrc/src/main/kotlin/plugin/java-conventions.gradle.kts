@@ -31,6 +31,8 @@ tasks.withType<KotlinCompile>() {
 
 dependencies {
 
+    // kotlinx-coroutine-jvm
+    implementation("org.jetbrains.kotlinx:kotlinx-coroutines-core:1.6.4")
     testImplementation("org.junit.jupiter:junit-jupiter-api")
     testRuntimeOnly("org.junit.jupiter:junit-jupiter-engine")
     testImplementation("org.junit.jupiter:junit-jupiter-engine")

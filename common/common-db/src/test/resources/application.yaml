@@ -1,7 +1,11 @@
-datasource:
-  db:
-    username: sa
-    password: sa
-    url: jdbc:h2:mem:myapp
-ebean:
-  currentUserProvider: io.vanaheimr.common.db.provider.RequestContextUserProvider
+jpa:
+  default:
+    reactive: true
+    properties:
+      hibernate:
+        hbm2ddl:
+          auto: create-drop
+        connection:
+          url: jdbc:mysql://localhost:3307/my_db
+          username: myUser
+          password: myPassword

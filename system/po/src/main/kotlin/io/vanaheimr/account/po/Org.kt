@@ -1,20 +1,21 @@
 package io.vanaheimr.account.po
 
-import io.ebean.annotation.DbForeignKey
-import io.ebean.annotation.Index
-import io.vanaheimr.common.db.po.BaseModel
-import javax.persistence.Entity
-import javax.persistence.ManyToMany
+import io.vanaheimr.common.db.po.BaseEntity
+import jakarta.persistence.Entity
+import jakarta.persistence.Index
+import jakarta.persistence.ManyToMany
 
 @Entity
-class Org (
-    @Index
-    var name:String = "",
-    @Index
-    var parentId:Long = 0,
-    @Index
-    var status:OrgStatus = OrgStatus.ENABLED,
-    @ManyToMany(cascade = [javax.persistence.CascadeType.PERSIST])
-    @DbForeignKey(noConstraint=true)
-    var accounts:MutableList<Account> = mutableListOf()
-    ): BaseModel()
+class Org(
+    @param:Index(name = "org_name", columnList = "name")
+    var name: String = "",
+    @Index(name = "org_parentId", columns = ["parentId"])
+    var parentId: Long = 0,
+
+    @Index(name = "org_path", columns = ["path"])
+    var path: String = "",
+    @Index(name = "org_status", columns = ["status"])
+    var status: OrgStatus = OrgStatus.ENABLED,
+    @ManyToMany
+    var accounts: MutableList<Account> = mutableListOf()
+) : BaseEntity()

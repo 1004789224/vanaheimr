@@ -1,26 +1,30 @@
 package io.vanaheimr.account.po
 
-import io.ebean.annotation.DbForeignKey
-import io.ebean.annotation.Index
-import io.vanaheimr.common.db.po.BaseModel
-import javax.persistence.CascadeType
-import javax.persistence.Entity
-import javax.persistence.ManyToMany
+import io.micronaut.data.annotation.Index
+import io.micronaut.data.annotation.MappedEntity
+import io.micronaut.data.annotation.Relation
+import io.vanaheimr.common.db.po.BaseEntity
+import jakarta.persistence.ManyToMany
 
-@Entity
+
+@MappedEntity
 class Account(
+
+    @Index(name = "account_name", columns = ["name"])
     var name: String,
     var password: String,
+    @Index(name = "account_phone", columns = ["phone"])
     var phone: String,
-    @ManyToMany(cascade = [CascadeType.PERSIST])
-    @DbForeignKey(noConstraint = true)
+    @Relation(
+        value = Relation.Kind.MANY_TO_MANY,
+        mappedBy = "account",
+    )
     val roles: MutableList<Role> = mutableListOf(),
-    @DbForeignKey(noConstraint = true)
-    @ManyToMany(cascade = [CascadeType.PERSIST])
+    @ManyToMany
     val orgs: MutableList<Org> = mutableListOf(),
-    @Index
+    @Index(name = "account_status", columns = ["status"])
     var status: AccountStatus = AccountStatus.ENABLED,
     var email: String? = null,
     var address: String? = null,
     var avatar: String? = null,
-) : BaseModel()
+) : BaseEntity()

@@ -1,9 +1,10 @@
 package io.vanaheimr.common.db.po
 
-import javax.persistence.Entity
+import io.micronaut.data.annotation.MappedEntity
 
-@Entity
-open class CustomModel(name: String) : BaseModel() {
+
+@MappedEntity
+open class CustomModel(name: String) : BaseEntity() {
     val name: String = name
     override fun toString(): String {
         return "CustomModel(name='$name')"

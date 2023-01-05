@@ -16,6 +16,7 @@
             <option value="$PROJECT_DIR$/common" />
             <option value="$PROJECT_DIR$/common/common-core" />
             <option value="$PROJECT_DIR$/common/common-db" />
+            <option value="$PROJECT_DIR$/common/common-security" />
             <option value="$PROJECT_DIR$/common/common-web" />
             <option value="$PROJECT_DIR$/system" />
             <option value="$PROJECT_DIR$/system/api" />

@@ -5,9 +5,9 @@ plugins {
 
 dependencies {
     // micronaut-security
-    implementation("io.micronaut:micronaut-http-server-netty")
+    compileOnly("io.micronaut:micronaut-http-server-netty")
 
     // reactor-core
-    implementation("io.projectreactor:reactor-core")
-    implementation(project(":common:common-core"))
+    api("io.projectreactor:reactor-core")
+    api(project(":common:common-core"))
 }

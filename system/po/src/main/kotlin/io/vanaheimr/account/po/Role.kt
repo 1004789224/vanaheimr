@@ -1,20 +1,22 @@
 package io.vanaheimr.account.po
 
-import io.ebean.annotation.DbForeignKey
-import io.ebean.annotation.DbJson
-import io.ebean.annotation.Index
-import io.vanaheimr.common.db.po.BaseModel
-import javax.persistence.Entity
-import javax.persistence.ManyToMany
+import io.micronaut.data.annotation.Index
+import io.micronaut.data.annotation.MappedEntity
+import io.micronaut.data.annotation.Relation
+import io.micronaut.data.annotation.TypeDef
+import io.micronaut.data.model.DataType
+import io.vanaheimr.common.db.po.BaseEntity
 
-@Entity
-class Role(
-    @Index
-    val name:String,
-    val desc:String,
-    @DbJson
-    val metadata:MutableMap<String,Any>,
-    @ManyToMany(cascade = [javax.persistence.CascadeType.PERSIST])
-    @DbForeignKey(noConstraint=true)
-    val permissions:MutableList<Permission> = mutableListOf()
-): BaseModel()
+@MappedEntity
+data class Role(
+    @Index(name = "role_name", columns = ["name"])
+    val name: String,
+    val desc: String,
+    @TypeDef(type = DataType.JSON)
+    val metadata: MutableMap<String, Any>,
+    @Relation(
+        value = Relation.Kind.MANY_TO_MANY,
+        mappedBy = "roles",
+    )
+    val permissions: MutableList<Permission> = mutableListOf()
+) : BaseEntity()

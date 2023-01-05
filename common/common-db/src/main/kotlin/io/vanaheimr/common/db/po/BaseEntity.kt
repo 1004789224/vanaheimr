@@ -1,13 +1,14 @@
 package io.vanaheimr.common.db.po
 
 
-import io.ebean.Model
-import io.ebean.annotation.*
+import io.vanaheimr.common.db.TenantId
+import io.vanaheimr.common.db.WhoCreated
+import io.vanaheimr.common.db.WhoModified
+import jakarta.persistence.GeneratedValue
+import jakarta.persistence.Id
+import jakarta.persistence.MappedSuperclass
+import jakarta.persistence.Version
 import java.time.LocalDateTime
-import javax.persistence.Id
-import javax.persistence.MappedSuperclass
-import javax.persistence.Version
-import kotlin.properties.Delegates
 
 /**
  * ebean BaseTable
@@ -23,32 +24,34 @@ import kotlin.properties.Delegates
  * @property remark 备注
  * @property tenantId 租户id
  */
+@Where("is_deleted = 0")
 @MappedSuperclass
-open class BaseModel : Model() {
+open class BaseEntity {
 
     @Id
+    @GeneratedValue
     var id: Long = 0
 
     @Version
     var version: Long = 0
 
-    @WhenCreated
+    @CreatedAt
     lateinit var createAt: LocalDateTime
 
-    @WhenModified
+    @DateUpdated
     lateinit var updateAt: LocalDateTime
 
     @WhoCreated
-    var createBy :Long=0
-    @WhenModified
-    var updateBy :Long=0
+    var createBy: Long = 0
+
+    @WhoModified
+    var updateBy: Long = 0
 
     @TenantId
-    var tenantId :Long=0
+    var tenantId: Long = 0
 
-    @SoftDelete
     var isDeleted: Boolean = false
 
-    @Length(300)
+
     var remark: String? = null
 }
