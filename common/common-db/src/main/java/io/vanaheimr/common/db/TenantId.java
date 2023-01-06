@@ -4,7 +4,6 @@ import io.micronaut.data.annotation.AutoPopulated;
 
 import java.lang.annotation.*;
 import java.time.temporal.ChronoUnit;
-
 @Retention(RetentionPolicy.RUNTIME)
 @Target({ElementType.METHOD, ElementType.FIELD})
 @Documented

@@ -1,3 +1,5 @@
+import gradle.kotlin.dsl.accessors._b4ea55e49131caed5ed9fe789b9cef1e.api
+
 val module = project.name
 subprojects {
 
@@ -20,6 +22,11 @@ subprojects {
         "po" -> {
             apply(plugin = "db-conventions")
             apply(plugin = "java-conventions")
+            val implementation by this.configurations
+            dependencies {
+                implementation(project(":common:common-db"))
+
+            }
         }
 
         "boot" -> {

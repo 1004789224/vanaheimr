@@ -9,5 +9,4 @@ dependencies {
 
     // reactor-core
     api("io.projectreactor:reactor-core")
-    api(project(":common:common-core"))
 }
