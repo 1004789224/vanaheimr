@@ -5,9 +5,9 @@ plugins {
 
 
 flyway {
-    url = "jdbc:h2:file:${File(project.rootProject.rootDir, "vanaheimr").path};AUTO_SERVER=TRUE"
-    user = "sa"
-    password = ""
+    url = "jdbc:postgresql://localhost:5432/postgres"
+    user = "postgres"
+    password = "postgres"
     schemas = arrayOf("vanaheimr")
     locations = arrayOf("classpath:db/migration")
     cleanDisabled = false
@@ -19,9 +19,9 @@ tasks.getByName("flywayMigrate").dependsOn("compileKotlin")
 
 dependencies {
     implementation("org.flywaydb:flyway-core")
-
+    // postgresql driver
+    implementation("org.postgresql:postgresql")
     implementation(project(":common:common-db"))
-    testImplementation("com.h2database:h2")
     implementation("org.jooq:jooq")
 
 }

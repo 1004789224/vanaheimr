@@ -1,4 +1,4 @@
-package io.vanaheimr.account.api
+package io.vanaheimr.account.controller
 
 import io.micronaut.http.annotation.Body
 import io.micronaut.http.annotation.Controller

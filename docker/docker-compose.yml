@@ -1,0 +1,32 @@
+## postgresql
+
+version: '3.7'
+services:
+  postgresql:
+    image: postgres:12.2
+    container_name: postgresql
+    restart: always
+    environment:
+      - POSTGRES_USER=postgres
+      - POSTGRES_PASSWORD=postgres
+      - POSTGRES_DB=vanaheimr
+    volumes:
+      - ./postgresql:/var/lib/postgresql/data
+    ports:
+      - 5432:5432
+  #  rocketmq
+  rocketmq:
+    image: apache/rocketmq:4.7.1
+    container_name: rocketmq
+    restart: always
+    environment:
+      - NAMESRV_ADDR=rocketmq:9876
+      - JAVA_OPT_EXT=-Duser.home=/opt/rocketmq
+    volumes:
+      - ./rocketmq/logs:/opt/rocketmq/logs
+      - ./rocketmq/store:/opt/rocketmq/store
+    ports:
+      - 9876:9876
+      - 10911:10911
+      - 10909:10909
+    command: sh mqnamesrv

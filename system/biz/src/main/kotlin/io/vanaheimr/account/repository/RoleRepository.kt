@@ -22,6 +22,12 @@ class RoleRepository(private val dslContext: DSLContext) {
             .set(Tables.SYSTEM_ROLE.TENANT_ID, 1L)
             .returning()
             .awaitFirstOrNull()
-            ?.into(RoleVo::class.java) ?: error("cant find")
+            ?.map {
+                RoleVo(
+                    it.get(Tables.SYSTEM_ROLE.ID),
+                    it.get(Tables.SYSTEM_ROLE.NAME),
+                    it.get(Tables.SYSTEM_ROLE.DESCRIPTION),
+                )
+            } ?: error("cant find")
     }
 }

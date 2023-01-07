@@ -1,6 +1,6 @@
 r2dbc:
   datasources:
     default:
-      url: ${DB_URL:`r2dbc:h2:file://Users/nanfeng/IdeaProjects/vanaheimr/vanaheimr;AUTO_SERVER=TRUE`}
-      username: ${DB_USER:`sa`}
-      password: ${DB_PASSWORD:``}
+      url: ${DB_URL:`r2dbc:postgresql://localhost:5432/postgres`}
+      username: ${DB_USER:`postgres`}
+      password: ${DB_PASSWORD:`postgres`}

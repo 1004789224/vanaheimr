@@ -46,9 +46,10 @@ class V1_0_1__initSchema : JooqMigration() {
         commentOnColumn(DSL.name("system_account", "status")).`is`("状态").execute()
         commentOnColumn(DSL.name("system_account", "avatar")).`is`("头像").execute()
         // add index
-        createIndex("idx_account_name").on("system_account").include("name").execute()
-        createIndex("idx_account_email").on("system_account").include("email").execute()
-        createIndex("idx_account_phone").on("system_account").include("phone").execute()
+        createIndex("idx_account_name").on("system_account", "name").execute()
+        createIndex("idx_account_email").on("system_account", "email").execute()
+        createIndex("idx_account_phone").on("system_account", "phone").execute()
+        createIndex("idx_account_tenant_id").on("system_account", "tenant_id").execute()
 
         // system_role
         createTable("system_role")
@@ -64,11 +65,11 @@ class V1_0_1__initSchema : JooqMigration() {
             .column("description", org.jooq.impl.SQLDataType.VARCHAR(255))
             .constraints(
                 org.jooq.impl.DSL.constraint("pk_role").primaryKey("id"),
-                org.jooq.impl.DSL.constraint("uk_role_name").unique("name")
+                org.jooq.impl.DSL.constraint("uk_role_name_tentant_id").unique("name", "tenant_id")
             )
             .execute()
-        // add index
-        createIndex("idx_role_tenant_id").on("system_role").include("tenant_id").execute()
+
+        createIndex("idx_role_tenant_id").on("system_role", "tenant_id").execute()
         // add comment
         commentOnTable("system_role").`is`("系统角色").execute()
         commentOnColumn(DSL.name("system_role", "id")).`is`("主键").execute()
@@ -104,9 +105,9 @@ class V1_0_1__initSchema : JooqMigration() {
             )
             .execute()
         // add index
-        createIndex("idx_permission_tenant_id").on("system_permission").include("tenant_id").execute()
-        createIndex("idx_permission_parent_id").on("system_permission").include("parent_id").execute()
-        createIndex("idx_permission_path").on("system_permission").include("path").execute()
+        createIndex("idx_permission_tenant_id").on("system_permission", "tenant_id").execute()
+        createIndex("idx_permission_parent_id").on("system_permission", "parent_id").execute()
+        createIndex("idx_permission_path").on("system_permission", "path").execute()
         // add comment
         commentOnTable("system_permission").`is`("系统权限").execute()
         commentOnColumn(DSL.name("system_permission", "id")).`is`("主键").execute()
@@ -159,9 +160,9 @@ class V1_0_1__initSchema : JooqMigration() {
             )
             .execute()
         // add index
-        createIndex("idx_organization_tenant_id").on("system_organization").include("tenant_id").execute()
-        createIndex("idx_organization_parent_id").on("system_organization").include("parent_id").execute()
-        createIndex("idx_organization_path").on("system_organization").include("path").execute()
+        createIndex("idx_organization_tenant_id").on("system_organization", "tenant_id").execute()
+        createIndex("idx_organization_parent_id").on("system_organization", "parent_id").execute()
+        createIndex("idx_organization_path").on("system_organization", "path").execute()
         // add comment
         commentOnTable("system_organization").`is`("系统组织").execute()
         commentOnColumn(DSL.name("system_organization", "id")).`is`("主键").execute()

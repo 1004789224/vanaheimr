@@ -16,7 +16,8 @@ val jooqVersion by extra { "3.17.6" }
 
 val module = project.parent!!.name.capitalized()
 dependencies {
-    jooqGenerator("com.h2database:h2:+")
+    // postgresql driver
+    jooqGenerator("org.postgresql:postgresql:42.5.1")
 }
 
 jooq {
@@ -29,17 +30,18 @@ jooq {
             jooqConfiguration.apply {
                 logging = Logging.WARN
                 jdbc.apply {
-                    driver = "org.h2.Driver"
-                    url = "jdbc:h2:file:${File(project.rootProject.rootDir, "vanaheimr").path};AUTO_SERVER=TRUE"
-                    user = "sa"
-                    password = ""
+                    // postgresql
+                    driver = "org.postgresql.Driver"
+                    url = "jdbc:postgresql://localhost:5432/postgres"
+                    user = "postgres"
+                    password = "postgres"
                 }
                 generator.apply {
 
                     name = "org.jooq.codegen.DefaultGenerator"
                     database.apply {
 //                        includes = "${module}_*"
-                        name = "org.jooq.meta.h2.H2Database"
+                        name = "org.jooq.meta.postgres.PostgresDatabase"
                         inputSchema = "vanaheimr"
                         forcedTypes.addAll(listOf(
                             ForcedType().apply {
