@@ -33,6 +33,7 @@ dependencies {
 
     // kotlinx-coroutine-jvm
     implementation("org.jetbrains.kotlinx:kotlinx-coroutines-core:1.6.4")
+    implementation("org.jetbrains.kotlinx:kotlinx-coroutines-reactor:1.6.4")
     testImplementation("org.junit.jupiter:junit-jupiter-api")
     testRuntimeOnly("org.junit.jupiter:junit-jupiter-engine")
     testImplementation("org.junit.jupiter:junit-jupiter-engine")
@@ -49,4 +50,14 @@ tasks.withType<Test> {
 
 micronaut {
     version.set("3.8.0")
+}
+
+configurations.all {
+    resolutionStrategy.dependencySubstitution {
+        substitute(module("io.micronaut:micronaut-jackson-databind"))
+            .using(module("io.micronaut.serde:micronaut-serde-jackson:1.5.0"))
+
+        substitute(module("org.jooq:jooq"))
+            .using(module("org.jooq:jooq:3.17.+"))
+    }
 }

@@ -6,9 +6,9 @@ import org.jooq.DSLContext
 abstract class JooqMigration : BaseJavaMigration() {
     override fun migrate(context: org.flywaydb.core.api.migration.Context) {
         val jooq = org.jooq.impl.DSL.using(context.connection)
-        migrate(jooq)
+        jooq.migrate()
     }
 
 
-    abstract fun migrate(dslContext: DSLContext)
+    abstract fun DSLContext.migrate()
 }

@@ -1,9 +1,7 @@
 package io.vanaheimr.common.core;
 
-import java.util.Collection;
-
-public record Pageable<T>(
-        Collection<T> items,
-        long totalCount
+public record Pageable(
+        int page,
+        int size
 ) {
 }

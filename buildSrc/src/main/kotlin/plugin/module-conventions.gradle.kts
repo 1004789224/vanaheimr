@@ -20,6 +20,8 @@ subprojects {
         }
 
         "po" -> {
+            apply(plugin="task-gen-jooq")
+
             apply(plugin = "db-conventions")
             apply(plugin = "java-conventions")
             val implementation by this.configurations

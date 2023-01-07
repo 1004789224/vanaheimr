@@ -1,56 +1,53 @@
+import nu.studer.gradle.jooq.JooqGenerate
+import org.gradle.configurationcache.extensions.capitalized
 import org.jooq.meta.jaxb.ForcedType
 import org.jooq.meta.jaxb.Logging
 
 plugins {
+    id("java-conventions")
     id("nu.studer.jooq")
+    idea
 }
 
 val api by configurations
 val implementation by configurations
 val runtimeOnly by configurations
-val jooqGroup by extra { "org.jooq.trial-java-8" }
-val jooqVersion by extra { "3.17.3" }
+val jooqVersion by extra { "3.17.6" }
 
-val module = project.project.name
+val module = project.parent!!.name.capitalized()
 dependencies {
-    api("$jooqGroup:jooq:$jooqVersion")
-    implementation("$jooqGroup:jooq-codegen:$jooqVersion")
-    implementation("$jooqGroup:jooq-meta:$jooqVersion")
-    jooqGenerator("mysql:mysql-connector-java")
-    runtimeOnly("mysql:mysql-connector-java")
+    jooqGenerator("com.h2database:h2:+")
 }
 
 jooq {
     version.set(jooqVersion)
-    edition.set(nu.studer.gradle.jooq.JooqEdition.TRIAL_JAVA_8)
+    edition.set(nu.studer.gradle.jooq.JooqEdition.OSS)
 
     configurations {
-        create("poc") {
+        create("$module") {
             generateSchemaSourceOnCompilation.set(false)
             jooqConfiguration.apply {
                 logging = Logging.WARN
                 jdbc.apply {
-                    driver = "org.postgresql.Driver"
-                    url = "jdbc:postgresql://localhost:5432/mydemo"
-                    user = "foo"
-                    password = "bar"
+                    driver = "org.h2.Driver"
+                    url = "jdbc:h2:file:${File(project.rootProject.rootDir, "vanaheimr").path};AUTO_SERVER=TRUE"
+                    user = "sa"
+                    password = ""
                 }
                 generator.apply {
 
                     name = "org.jooq.codegen.DefaultGenerator"
                     database.apply {
-                        includes = "${module}_*"
-                        name = "org.jooq.meta.postgres.PostgresDatabase"
-                        inputSchema = "public"
+//                        includes = "${module}_*"
+                        name = "org.jooq.meta.h2.H2Database"
+                        inputSchema = "vanaheimr"
                         forcedTypes.addAll(listOf(
                             ForcedType().apply {
                                 isAuditInsertTimestamp = true
-                                name = "int"
                                 includeExpression = "create_time"
                             },
                             ForcedType().apply {
                                 isAuditUpdateTimestamp = true
-                                name = "timestamptz"
                                 includeExpression = "update_time"
                             },
                             ForcedType().apply {
@@ -67,14 +64,17 @@ jooq {
                         ))
                     }
                     generate.apply {
-                        isPojos = false
-                        isDaos = false
+                        isPojos = true
+                        isDaos = true
                         isRecords = true
                         isDeprecated = false
+                        isRelations = false
+                        isFluentSetters = true
+                        isGeneratedAnnotation = false
+                        isJavaTimeTypes = true
                     }
                     target.apply {
-                        packageName = "io.vanaheimr.${module}.po"
-                        directory = "src/main/java"
+                        packageName = "io.vanaheimr.${module.decapitalize()}.po"
                     }
                     strategy.name = "org.jooq.codegen.DefaultGeneratorStrategy"
                 }
@@ -82,3 +82,13 @@ jooq {
         }
     }
 }
+// 使idea能够识别jooq生成的代码
+idea {
+    module {
+        sourceDirs.add(file("${buildDir}/generated-src/jooq/${module}"))
+    }
+}
+sourceSets.getByName("main").java.srcDir("${buildDir}/generated-src/jooq/${module}")
+sourceSets.getByName("test").java.srcDir("${buildDir}/generated-src/jooq/${module}")
+// 将jooq生成的代码加入到编译中
+tasks.getByName("compileJava").dependsOn("generate${module}Jooq")

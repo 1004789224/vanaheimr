@@ -28,5 +28,5 @@ dependencies {
     implementation("nu.studer:gradle-jooq-plugin:8.1")
     // flyway-gradle-plugin
     implementation("org.flywaydb:flyway-gradle-plugin:8.2.2")
-
+    implementation("org.jooq:jooq:3.17.+")
 }

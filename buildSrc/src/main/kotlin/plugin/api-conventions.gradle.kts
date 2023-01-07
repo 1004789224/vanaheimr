@@ -9,6 +9,7 @@ dependencies {
     kapt("io.micronaut:micronaut-http-validation")
 
     kapt("io.micronaut:micronaut-http-validation")
+    implementation("io.micronaut.serde:micronaut-serde-jackson")
 
     // swagger-annotations
     implementation("io.swagger.core.v3:swagger-annotations:2.1.9")

@@ -23,6 +23,7 @@ pluginManagement {
 
 
 include(":system")
+include(":db-migration")
 include(":system:biz")
 include(":system:api")
 include(":system:po")
