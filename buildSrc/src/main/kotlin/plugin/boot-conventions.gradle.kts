@@ -23,8 +23,6 @@ graalvmNative {
 dependencies {
     // micronaut-runtime
     implementation("io.micronaut:micronaut-runtime")
-    runtimeOnly("ch.qos.logback:logback-classic")
-    compileOnly("org.graalvm.nativeimage:svm")
 }
 
 micronaut {

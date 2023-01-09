@@ -7,6 +7,7 @@ plugins {
     id("java-conventions")
     id("nu.studer.jooq")
     idea
+
 }
 
 val api by configurations
@@ -67,8 +68,8 @@ jooq {
                     }
                     generate.apply {
                         isPojos = true
-                        isDaos = true
-                        isRecords = true
+                        isDaos = false
+                        isRecords = false
                         isDeprecated = false
                         isRelations = false
                         isFluentSetters = true
