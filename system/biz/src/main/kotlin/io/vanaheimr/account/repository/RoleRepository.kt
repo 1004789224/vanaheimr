@@ -1,5 +1,6 @@
 package io.vanaheimr.account.repository
 
+import io.vanaheimr.common.db.setIfNotNull
 import io.vanaheimr.system.module.vo.RoleVo
 import io.vanaheimr.system.po.Tables
 import jakarta.inject.Singleton
@@ -29,5 +30,42 @@ class RoleRepository(private val dslContext: DSLContext) {
                     it.get(Tables.SYSTEM_ROLE.DESCRIPTION),
                 )
             } ?: error("cant find")
+    }
+
+
+    suspend fun getByName(name: String): RoleVo? {
+        return dslContext.select(Tables.SYSTEM_ROLE.ID, Tables.SYSTEM_ROLE.NAME, Tables.SYSTEM_ROLE.DESCRIPTION)
+            .from(Tables.SYSTEM_ROLE)
+            .where(Tables.SYSTEM_ROLE.NAME.eq(name).and(Tables.SYSTEM_ROLE.DELETED.eq(false)))
+            .awaitFirstOrNull()
+            ?.let {
+                return RoleVo(
+                    it.get(Tables.SYSTEM_ROLE.ID),
+                    it.get(Tables.SYSTEM_ROLE.NAME),
+                    it.get(Tables.SYSTEM_ROLE.DESCRIPTION),
+                )
+            }
+
+    }
+
+    suspend fun deleteById(id: Long): Boolean {
+        return dslContext.update(Tables.SYSTEM_ROLE)
+            .set(Tables.SYSTEM_ROLE.DELETED, true)
+            .where(Tables.SYSTEM_ROLE.ID.eq(id))
+            .awaitFirstOrNull()
+            ?.let {
+                it > 0
+            } ?: false
+    }
+
+    suspend fun update(id: Long, name: String?, desc: String?): Boolean {
+        return dslContext.update(Tables.SYSTEM_ROLE)
+            .setIfNotNull(Tables.SYSTEM_ROLE.NAME, name)
+            .setIfNotNull(Tables.SYSTEM_ROLE.DESCRIPTION, desc)
+            .where(Tables.SYSTEM_ROLE.ID.eq(id))
+            .awaitFirstOrNull()
+            ?.let {
+                it > 0
+            } ?: false
     }
 }

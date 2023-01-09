@@ -64,8 +64,7 @@ class V1_0_1__initSchema : JooqMigration() {
             .column("tenant_id", org.jooq.impl.SQLDataType.BIGINT)
             .column("description", org.jooq.impl.SQLDataType.VARCHAR(255))
             .constraints(
-                org.jooq.impl.DSL.constraint("pk_role").primaryKey("id"),
-                org.jooq.impl.DSL.constraint("uk_role_name_tentant_id").unique("name", "tenant_id")
+                DSL.constraint("pk_role").primaryKey("id"),
             )
             .execute()
 
@@ -101,7 +100,6 @@ class V1_0_1__initSchema : JooqMigration() {
             .column("metadata", org.jooq.impl.SQLDataType.JSON)
             .constraints(
                 org.jooq.impl.DSL.constraint("pk_permission").primaryKey("id"),
-                org.jooq.impl.DSL.constraint("uk_permission_name").unique("name")
             )
             .execute()
         // add index
@@ -156,7 +154,6 @@ class V1_0_1__initSchema : JooqMigration() {
             .column("metadata", org.jooq.impl.SQLDataType.JSON)
             .constraints(
                 org.jooq.impl.DSL.constraint("pk_organization").primaryKey("id"),
-                org.jooq.impl.DSL.constraint("uk_organization_name").unique("name")
             )
             .execute()
         // add index

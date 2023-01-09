@@ -48,10 +48,12 @@ jooq {
                             ForcedType().apply {
                                 isAuditInsertTimestamp = true
                                 includeExpression = "create_time"
+                                name="timestamp"
                             },
                             ForcedType().apply {
                                 isAuditUpdateTimestamp = true
                                 includeExpression = "update_time"
+                                name="timestamp"
                             },
                             ForcedType().apply {
                                 isAuditInsertUser = true

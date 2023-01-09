@@ -26,7 +26,7 @@ subprojects {
             apply(plugin = "java-conventions")
             val implementation by this.configurations
             dependencies {
-                implementation(project(":common:common-db"))
+                api(project(":common:common-db"))
 
             }
         }
