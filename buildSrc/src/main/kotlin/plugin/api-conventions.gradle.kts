@@ -14,9 +14,9 @@ val implementation by configurations
 
 dependencies {
     // swagger-annotations
-    implementation("io.swagger.core.v3:swagger-annotations:2.1.9")
+    api("io.swagger.core.v3:swagger-annotations:2.1.9")
     // https://mvnrepository.com/artifact/jakarta.validation/jakarta.validation-api
-    implementation("jakarta.validation:jakarta.validation-api:3.0.2")
+    api("jakarta.validation:jakarta.validation-api:3.0.2")
     // spring-web-annontations
     compileOnly("org.springframework:spring-web")
 }
